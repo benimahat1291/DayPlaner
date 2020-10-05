@@ -48,7 +48,7 @@ $(document).ready(function () {
         // formatt hours for display
         let displayHour = 0;
         let ampm = "";
-        if (hour > 12) {
+        if (hour >= 12) {
             displayHour = hour - 12;
             ampm = "pm";
         } else {
@@ -134,8 +134,9 @@ $(document).ready(function () {
         localStorage.setItem("storedTextArray", JSON.stringify(textArray));
 
     })
-
+    //add the hovering litsener to the saveBtn class
     $('.saveBtn').hover(function () {
+        //when this buttion is chosen
         $(this).addClass('saveBtnHover');
         //stuff to do on mouse enter
         console.log('hovering');
