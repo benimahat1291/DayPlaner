@@ -32,3 +32,32 @@ THEN the saved events persist
 
 ## PsuedoCode
 
+get current time and date using moment.js
+create a row element inside out container
+Append hourdisplay, textsection, and button to row
+give each button an id that refrences its row index
+use contionals to check if the hour value is save as the current hour
+Depend on if true change add the class to style to the display
+
+add Jquerry selector on button so that on click
+create an array where we can store text with index values matching row ids
+using the button index id retive the textbox index id of the same row.
+get the value of the textbox index id and save that to the array
+save the array to local storage
+in the beggining of the function call on the local storage to retive saved data
+
+## Improvements
+
+Better styling
+change to allow planes for the whole day
+display weather location and quote of the day
+create a save all button that saves all the text boxes at once
+create a clear button that clears the textboxes
+
+Build a Calander and use this as a template for the day planner for each day. 
+
+
+## Developer 
+
+Beni Mahat
+date: 10/04/2020
