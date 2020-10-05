@@ -98,9 +98,11 @@ $(document).ready(function () {
     };
     // updates the row color
     function updateRowColor($eachrow, hour) {
-        now24 = parseInt(now24);
-        hourint = parseInt(hour);
+        //change moement programed values to numbers 24hr clocks
+        now24 = parseInt(now24);//exact moment right now
+        hourint = parseInt(hour);//hour used in indexing 
 
+        //if condition is met add the style to the eachrow element
         if (hourint < now24) {
             $eachrow.addClass('past');
         } else if (hourint > now24) {
@@ -134,7 +136,7 @@ $(document).ready(function () {
     })
 
     $('.saveBtn').hover(function () {
-        let $btnHover = $(this).addClass('saveBtnHover');
+        $(this).addClass('saveBtnHover');
         //stuff to do on mouse enter
         console.log('hovering');
     },
