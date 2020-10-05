@@ -11,11 +11,11 @@ $(document).ready(function () {
     let now24 = moment().format('H');
     // now24 = 11; // activate this line to test with different time of the day
 
-    //access localstorage array and save as storedPlans
-    let planStorage = JSON.parse(localStorage.getItem("planStorage"));
-    // If plans were retrieved from localStorage, update the plan array to it
-    if (planStorage !== null) {
-        textArray = planStorage;
+    //access localstorage plan text array and save as planstorage
+    let storedTextArray = JSON.parse(localStorage.getItem("storedTextArray"));
+    // If plans array cant be found in local storage build an array to store text box elements
+    if (storedTextArray !== null) {
+        textArray = storedTextArray;
     } else {
         // on the first time this page ever loads create a new array 
         textArray = new Array(9);
@@ -23,24 +23,25 @@ $(document).ready(function () {
     }
 
 
-
     // Building the DOM Elements 
     //varibale form class containers
     let $container = $(".container");
     $container.empty();
-
+    //loop through using hours as the values for indexing
     for (var hour = 9; hour <= 17; hour++) {
-        var index = hour - 9; // define our index
+        var index = hour - 9; //index relative to hour
 
         //build the row element
         let $eachrow = $('<div>');
-        $eachrow.addClass('row'); //
+        $eachrow.addClass('row'); 
+        //this puts an ID used for Time Markup
         $eachrow.attr("hour-index", hour);
 
         //create a col to house to timebox
+        //Had to create cols to fill the body
         let $TimeDiv = $('<div>');
         $TimeDiv.addClass('col-md-2')
-        // create a box to house the time
+        // create a box to house the timedisplay
         const $timebox = $('<span>');
         $timebox.addClass('hour');
 
@@ -57,13 +58,16 @@ $(document).ready(function () {
         //mark up the hours in timebox 
         $timebox.text(displayHour + ampm);
 
+        //after creating each row, append to the container
         $container.append($eachrow);
+        //append each timebox and the div that houses it to eachrow
         $eachrow.append($TimeDiv);
         $TimeDiv.append($timebox);
 
         // building the middle textarea 
         //make an textarea input div in the html
         let $textArea = $('<input>');
+        // build an idea using noation that refences a varible into a string to name the current id
         $textArea.attr('id', `input-${index}`);
         $textArea.attr('class', 'textarea')
         $textArea.attr('type', 'text');
@@ -78,7 +82,8 @@ $(document).ready(function () {
         // building the save button 
         let $saveBtn = $('<button>');
         $saveBtn.addClass('saveBtn');
-        $saveBtn.attr('id', `saveid-${index}`);
+        // build an idea using noation that refences a varible into a string to name the current id
+        $saveBtn.attr('id', `saveid-${index}`); 
         $saveBtn.attr('save-id', index);
         $saveBtn.text('save');
         //create a col to house the button
@@ -107,31 +112,35 @@ $(document).ready(function () {
         }
 
     };
-
+    // when a button is pressed
     $(document).on('click', 'button', function (e) {
         e.preventDefault();
-        //refrence the value of save-id index
+        //refrence the value of save-id for the clicked button
         let $index = $(this).attr('save-id');
-        console.log($index)
+        //console.log($index)
+        //refrences the input at the respective textbox
         let inputId = '#input-' + $index;
-        console.log(inputId)
+        //console.log(inputId)
+        //calls on the text in the textbox
         let $value = $(inputId).val();
-        console.log($value)
-
+        //console.log($value)
+        //store the text into the respecitive index of the array
         textArray[$index] = $value;
         console.log(textArray);
-
-        localStorage.setItem("planStorage", JSON.stringify(textArray));
+        //Save the textArray to local storage as storedTextArry which we will call
+        //call in the begging to populated the Textboxes
+        localStorage.setItem("storedTextArray", JSON.stringify(textArray));
 
     })
 
     $('.saveBtn').hover(function () {
+        let $btnHover = $(this).addClass('saveBtnHover');
         //stuff to do on mouse enter
-        $(".saveBtn").addClass("saveBtnHover");
+        console.log('hovering');
     },
         function () {
             //stuff to do on mouse leave
-            $('.saveBtn').addClass('saveBtn')
+            $(this).removeClass("saveBtnHover");
         });
 
 });

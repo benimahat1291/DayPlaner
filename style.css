@@ -80,8 +80,9 @@ body {
 
 }
 
-.saveBtn i:hover {
+.saveBtnHover {
   font-size: 20px;
+  background-color: green;
   transition: all .3s ease-in-out;
 }
 
